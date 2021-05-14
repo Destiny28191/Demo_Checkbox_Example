@@ -12,27 +12,41 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    CheckBox cbEnabled;
-    Button btnCheck;
-    TextView tvShow;
+    CheckBox checkBoxDiscount;
+    Button buttonCheck;
+    TextView textView;
+
+    private double calcPay(double price, double discount){
+        double pay = price * (1 - discount/100);
+        return pay;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnCheck.setOnClickListener(new View.OnClickListener() {
+        checkBoxDiscount.findViewById(R.id.checkBoxDiscount);
+        buttonCheck.findViewById(R.id.buttonCheck);
+        textView.findViewById(R.id.textView);
+
+        buttonCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("MyActivity", "Inside onClick()");
+                Log.i("MainActivity", "Inside onClick()");
                 Toast.makeText(MainActivity.this, "Button is Clicked!", Toast.LENGTH_LONG).show();
-                if (cbEnabled.isChecked()){
-                    tvShow.setText("The discount is given. ");
-                }else{
-                    tvShow.setText("The discount is not given. ");
+                if(checkBoxDiscount.isChecked()) {
+                    double pay = calcPay(100, 20);
+                    textView.setText("The discount is given. You need to pay " + pay);
                 }
+                else {
+                    double pay = calcPay(100, 0);
+                    textView.setText("The discount is not given. You need to pay " + pay);
+                }
+
 
             }
         });
-    }
-}
+            }
+
+            }
